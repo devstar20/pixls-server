@@ -23,6 +23,38 @@ exports.findAll = (req, res) => {
       });
 };
 
+
+exports.findOneFilter = (req, res) => {
+    const tokenId = req.params.id;
+
+    var condition = tokenId ? { 'tokenId': tokenId } : {};
+    console.log(condition);
+    Pixls.find(condition)
+    .then(data => {
+      if (!data)
+        res.status(404).send({ message: "Not found Pixls with id " + tokenId });
+      else {
+        //delete data[0]['_id'];
+        var temp = data[0];
+        console.log(ret)
+        var ret = {
+          tokenId: temp.tokenId,
+          name: temp.name,
+          description: temp.description,
+          image: temp.image,
+          fileName: temp.fileName
+        }
+        
+        res.send(ret);
+      }
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .send({ message: "Error retrieving Pixls with id=" + tokenId });
+    });
+}
+
 exports.findFilter = (req, res) => {
     const condition_array = [];
     var condition = {};

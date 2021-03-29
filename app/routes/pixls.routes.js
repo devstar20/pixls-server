@@ -9,5 +9,5 @@ module.exports = app => {
     router.post("/", pixls.findAll);
     router.post("/filter", pixls.findFilter );
     router.get("/:id", pixls.findOneFilter);
-    app.use('/api/pixls', router);
+    app.use('/api/astropets', router);
 }
